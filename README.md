@@ -1,32 +1,25 @@
 # YONG ARCHIVE
 
-A minimal, responsive resale storefront with Apple-inspired styling and original sample illustrations. Working brand and sample inventory: checkout and email signup are demonstrations only.
+A Danish storefront for new and secondhand clothing. Current inventory: Supreme Box Logo Hooded Sweatshirt (FW25), Grey and Black, both size M, brand new, 3,000 DKK each, with receipt and dispatch within 24 hours, as supplied by the store owner.
 
-## Preview
+## Run
 
-Open `index.html`, or serve this folder using a static web server. There is no build step and no external dependency.
+Serve this repository root with a static web server. No build step or external dependencies.
 
-## Files
+## Inventory and original photos
 
-- `index.html`: storefront layout and accessible dialogs.
-- `styles.css`: responsive visual design.
-- `motion.css`: optional animations and reduced-motion support.
-- `app.js`: search, filters, sorting, product gallery, bag and demo checkout.
-- `catalog.js`: editable inventory and store settings.
-- `sample-assets.js`: 16 original sample illustrations, embedded so no image downloads are required.
+`catalog.js` is the editable inventory. Every product has its own `conditionType` (`new` or `preowned`), displayed condition, size, price, receipt flag, dispatch information, and five original photos. Store the paths in `photos`, accessible labels in `photoLabels`, and optional display rotations in `rotations`. Source photos are preserved. The black front photo is rotated by CSS in the layout; no product appearance has been altered.
 
-## Real products and photos
+The gallery shows every photo and supports a large-image viewer, keyboard navigation and color links between the two listings. Images use containment so item details are not cropped away. Prices and description escape user-supplied text in the interface. Resale stock is capped at one per item.
 
-Edit `catalog.js`. Each product has an ID, name, category, color, hex color, price in DKK, size, condition, description and sample asset name. To use real photographs, add a `photos` array to a product, with the front photo first and detail photo second, for example `photos: ["photos/hoodie-front.jpg", "photos/hoodie-detail.jpg"]`. Add those files to the repository at the matching paths.
+## Features
 
-Replace sample wording and the working brand when real inventory arrives. Resale stock is capped at one unit per product. The bag and filters persist only in the visitor's browser.
+Condition, size, color and price filters; search and sorting; persistent local bag; product gallery; demo checkout; and an email signup preview that does not store or send email addresses. Motion includes scroll reveals, hover zoom, animated dialogs and drawers, gallery fades and button feedback. Effects respect reduced-motion preferences.
 
-## Animations
+## Before accepting orders
 
-Staggered product and section reveals, hover zoom, gallery crossfades, animated drawers and dialogs, button feedback, a bag-count pulse, a compact header on scroll, a progress indicator, and a gently floating archive mark. All effects respect `prefers-reduced-motion`.
+Checkout and signup remain explicitly labelled as demos. Connect actual checkout, shipping prices, returns terms, contact information and email delivery. Dispatch within 24 hours is separate from transit time; no delivery guarantee or shipping price is invented.
 
-## Launch checklist
+## GitHub
 
-Connect real checkout, inventory, shipping, contact details, returns terms and email signup before accepting customers. No customer email is stored or transmitted in this demo. No order or payment is created.
-
-Deploy the repository root to a static web host. If using GitHub Pages, select the `main` branch and root folder in the repository's Pages settings when that option is available.
+The GitHub version lives at https://github.com/maltheyong-beep/yong-archive and contains the website files at its root. Upload all referenced photos with the matching filenames. Keep the GitHub copy and hosted version in sync after inventory updates.

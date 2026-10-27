@@ -1,12 +1,84 @@
-/* Replace sample products here with the real inventory and photo paths. */
-window.STORE={name:'YONG ARCHIVE',currency:'DKK',demo:true,popupDelay:8000,expressCheckout:false};
+/* Real inventory supplied by the store owner. Payment and email integrations are pending. */
+window.STORE={"name": "YONG ARCHIVE", "currency": "DKK", "demo": true, "popupDelay": 8000, "expressCheckout": false, "maxPrice": 5000};
 window.PRODUCTS=[
-{id:'p01',name:'Everyday hoodie',category:'Clothing',type:'Hoodie',color:'Stone',hex:'#c5c0b6',price:450,size:'M',condition:'Very good',asset:'hoodie',date:'2026-10-28',description:'An easy, relaxed silhouette in a soft stone tone. This is an illustrative sample; actual fabric, measurements and condition will be added with your real inventory.'},
-{id:'p02',name:'Utility jacket',category:'Clothing',type:'Jacket',color:'Ink',hex:'#333639',price:750,size:'L',condition:'Very good',asset:'jacket',date:'2026-10-27',description:'A clean everyday layer with a structured shape and understated details. Illustrative sample only. The actual item’s material, wear and measurements will be recorded before sale.'},
-{id:'p03',name:'Everyday sneakers',category:'Footwear',type:'Sneakers',color:'Chalk',hex:'#deddd7',price:650,size:'EU 43',condition:'Good',asset:'sneaker',date:'2026-10-26',description:'A low-profile sneaker in an understated chalk palette. Illustrative sample only. Actual sole wear, sizing and detailed condition photos will be supplied with the real listing.'},
-{id:'p04',name:'Essential tee',category:'Clothing',type:'T-shirt',color:'Cloud',hex:'#e8e5dd',price:250,size:'M',condition:'Very good',asset:'shirt',date:'2026-10-25',description:'A simple crew-neck silhouette with an easy everyday feel. Illustrative sample only. Actual measurements, fabric information and photos will be added with your real piece.'},
-{id:'p05',name:'Textured knit',category:'Clothing',type:'Knitwear',color:'Cocoa',hex:'#786355',price:550,size:'L',condition:'Very good',asset:'knit',date:'2026-10-24',description:'A textured layer in a warm cocoa tone. Illustrative sample only. Actual composition, measurements and any signs of wear will be described before this item is listed.'},
-{id:'p06',name:'Relaxed trousers',category:'Clothing',type:'Trousers',color:'Graphite',hex:'#4b4d4d',price:400,size:'W32',condition:'Good',asset:'pants',date:'2026-10-23',description:'A relaxed straight-leg silhouette in graphite. Illustrative sample only. Waist, inseam, composition and condition notes will be added with the real product.'},
-{id:'p07',name:'Everyday cap',category:'Accessories',type:'Cap',color:'Midnight',hex:'#30353a',price:200,size:'One size',condition:'Very good',asset:'cap',date:'2026-10-22',description:'An understated finishing touch in a dark midnight tone. Illustrative sample only. Actual sizing, closure details and condition photos will be supplied before sale.'},
-{id:'p08',name:'Canvas carryall',category:'Accessories',type:'Bag',color:'Sand',hex:'#b8a282',price:300,size:'One size',condition:'Good',asset:'bag',date:'2026-10-21',description:'An everyday carryall in a muted sand tone. Illustrative sample only. Actual dimensions, material and condition will be documented with the real listing.'}
+  {
+    "id": "supreme-fw25-grey-m",
+    "name": "Supreme Box Logo Hooded Sweatshirt (FW25) Grey",
+    "brand": "Supreme",
+    "category": "Hoodies",
+    "type": "Hoodie",
+    "group": "supreme-fw25-box-logo",
+    "color": "Grå",
+    "hex": "#b5b1a9",
+    "price": 3000,
+    "size": "M",
+    "condition": "Helt ny",
+    "conditionType": "new",
+    "receipt": true,
+    "offers": true,
+    "dispatch": "Afsendes inden for 24 timer",
+    "photos": [
+      "supreme-grey-front.jpeg",
+      "supreme-grey-logo.jpeg",
+      "supreme-grey-sleeve.jpeg",
+      "supreme-grey-neck.jpeg",
+      "supreme-grey-care.jpeg"
+    ],
+    "rotations": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "photoLabels": [
+      "Forside",
+      "Box logo",
+      "Ærmedetalje",
+      "Nakkemærke",
+      "Vaskemærke"
+    ],
+    "description": "Supreme Box Logo hoodie fra FW25. En fed hoodie til efteråret og vinteren, når det begynder at blive koldt. Helt ny, og kvittering medfølger. Bud er velkomne.",
+    "date": "2026-10-28"
+  },
+  {
+    "id": "supreme-fw25-black-m",
+    "name": "Supreme Box Logo Hooded Sweatshirt (FW25) Black",
+    "brand": "Supreme",
+    "category": "Hoodies",
+    "type": "Hoodie",
+    "group": "supreme-fw25-box-logo",
+    "color": "Sort",
+    "hex": "#252527",
+    "price": 3000,
+    "size": "M",
+    "condition": "Helt ny",
+    "conditionType": "new",
+    "receipt": true,
+    "offers": true,
+    "dispatch": "Afsendes inden for 24 timer",
+    "photos": [
+      "supreme-black-front.jpeg",
+      "supreme-black-logo.jpeg",
+      "supreme-black-sleeve.jpeg",
+      "supreme-black-neck.jpeg",
+      "supreme-black-care.jpeg"
+    ],
+    "rotations": [
+      -90,
+      0,
+      0,
+      0,
+      0
+    ],
+    "photoLabels": [
+      "Forside",
+      "Box logo",
+      "Ærmedetalje",
+      "Nakkemærke",
+      "Vaskemærke"
+    ],
+    "description": "Supreme Box Logo hoodie fra FW25. En fed hoodie til efteråret og vinteren, når det begynder at blive koldt. Helt ny, og kvittering medfølger. Bud er velkomne.",
+    "date": "2026-10-28"
+  }
 ];
