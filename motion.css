@@ -1,0 +1,56 @@
+/* Deliberate, accessible motion. All animation is optional enhancement. */
+:root{--motion-ease:cubic-bezier(.22,1,.36,1);--scroll-progress:0%}
+.header:after{content:'';height:2px;width:var(--scroll-progress);background:#869774;position:absolute;left:0;bottom:-1px;transition:width .14s linear;pointer-events:none}
+.header{transition:height .4s var(--motion-ease),box-shadow .4s,background .4s}
+.header.is-scrolled{height:72px;background:rgba(250,249,246,.95);box-shadow:0 8px 30px #24262405}
+.wordmark{transition:opacity .25s,transform .4s var(--motion-ease)}.wordmark:hover{opacity:.7;transform:translateY(-2px)}
+.motion-ready .intro .eyebrow{animation:intro-reveal .8s var(--motion-ease) both}
+.motion-ready .intro h1{animation:intro-reveal 1s var(--motion-ease) .08s both}
+.motion-ready .intro h1 span{display:inline-block;animation:intro-reveal 1.1s var(--motion-ease) .15s both}
+.motion-ready .intro-aside{animation:intro-reveal .9s var(--motion-ease) .25s both}
+.motion-ready .collection-top,.motion-ready .category-row{animation:intro-reveal .8s var(--motion-ease) .22s both}
+.reveal-card{opacity:0;translate:0 25px;transition:opacity .75s var(--motion-ease) var(--stagger,0ms),translate .85s var(--motion-ease) var(--stagger,0ms)}
+.reveal-card.is-revealed{opacity:1;translate:0 0}
+.reveal-section{opacity:0;translate:0 35px;transition:opacity 1s var(--motion-ease),translate 1s var(--motion-ease)}
+.reveal-section.is-revealed{opacity:1;translate:0 0}
+.product-image{transition:box-shadow .5s var(--motion-ease),transform .65s var(--motion-ease)}
+.product-image img{transition:transform .85s var(--motion-ease),opacity .45s}
+.product-image:focus-visible{outline-offset:4px}
+.product-card:focus-within .product-name{color:#657750}
+.product-card .product-name{transition:color .25s}
+.product-size{transition:translate .4s var(--motion-ease)}
+.chip{transition:background .25s,color .25s,border-color .25s,transform .35s var(--motion-ease),box-shadow .25s}
+.chip:active{transform:scale(.95)}
+.chip.selected{box-shadow:0 3px 10px #24262412}
+.nav-link:after{transition:transform .3s var(--motion-ease)}
+.nav-link.active:after{animation:dot-in .4s var(--motion-ease) both}
+.pill,.add-product{transition:transform .4s var(--motion-ease),box-shadow .4s,background .3s}
+.pill span,.add-product>span:last-child{transition:transform .4s var(--motion-ease)}
+.pill:active,.add-product:active{transform:scale(.97)}
+.pill:hover span,.add-product:hover>span:last-child{transform:translate(3px,-2px)}
+.pill.dark:hover{box-shadow:0 6px 18px #24262418}
+.icon-button{transition:transform .35s var(--motion-ease),background .25s}.icon-button:hover{transform:rotate(-6deg)}
+.close:hover{transform:rotate(90deg)}
+.drawer[open]{animation:none}
+dialog[open]::backdrop{animation:backdrop-in .35s ease both}
+dialog[data-closing]::backdrop{animation:backdrop-out .18s ease both}
+.bag-item{animation:intro-reveal .45s var(--motion-ease) both}.related-card{animation:intro-reveal .55s var(--motion-ease) .05s both}
+.filter-tag{animation:tag-in .3s var(--motion-ease) both;transition:background .2s,transform .2s}.filter-tag:hover{background:#dbe2d0;transform:translateY(-2px)}
+.gallery-thumb{transition:border-color .25s,transform .4s var(--motion-ease),background .3s}.gallery-thumb:hover{transform:translateY(-3px);background:#fff}
+.orbit>span{animation:gentle-float 8s ease-in-out infinite}.orbit-line{animation:orbital-breathe 10s ease-in-out infinite}
+.next-edit{transition:background .6s}.next-edit:hover{background:#e1e7da}
+.next-edit .edition-mark{transition:translate .7s var(--motion-ease)}.next-edit:hover .edition-mark{translate:0 -5px}
+.newsletter-art{animation:newsletter-glow 8s ease-in-out infinite}
+.product-accordion[open] p{animation:intro-reveal .35s var(--motion-ease) both}
+.footer-links button{position:relative}.footer-links button:after{content:'';position:absolute;left:0;right:0;bottom:3px;height:1px;background:#89967b;transform:scaleX(0);transform-origin:left;transition:transform .35s var(--motion-ease)}.footer-links button:hover:after{transform:scaleX(1)}
+@media(hover:hover) and (pointer:fine){.product-card:hover .product-image{transform:translateY(-5px);box-shadow:0 16px 28px #24262409}.product-image:hover .alternate{transform:scale(1.045)}.product-card:hover .product-size{translate:0 -2px}.chip:not(.selected):hover{transform:translateY(-2px);background:#eceee6;border-color:#ccd2c2}}
+@keyframes intro-reveal{from{opacity:0;transform:translateY(17px)}to{opacity:1;transform:translateY(0)}}
+@keyframes dot-in{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes tag-in{from{opacity:0;transform:translateY(5px) scale(.95)}to{opacity:1;transform:none}}
+@keyframes backdrop-in{from{opacity:0}to{opacity:1}}
+@keyframes backdrop-out{from{opacity:1}to{opacity:0}}
+@keyframes gentle-float{0%,100%{transform:rotate(-13deg) translateY(0)}50%{transform:rotate(-9deg) translateY(-10px)}}
+@keyframes orbital-breathe{0%,100%{transform:rotate(-25deg) scale(1)}50%{transform:rotate(-18deg) scale(1.05)}}
+@keyframes newsletter-glow{0%,100%{background:#e1e7d8}50%{background:#d4dec7}}
+@media(max-width:700px){.header.is-scrolled{height:62px}.reveal-card{translate:0 18px}}
+@media(prefers-reduced-motion:reduce){.reveal-card,.reveal-section{opacity:1;translate:none}.header,.header.is-scrolled{transition:none}.product-image:hover,.wordmark:hover,.chip:hover,.icon-button:hover{transform:none!important}.header:after{transition:none}*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
