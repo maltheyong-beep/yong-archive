@@ -77,6 +77,7 @@ window.PRODUCTS=[
   },
   {
     "id": "cp-company-button-overshirt-l",
+    "cardScale": 1.08,
     "name": "C.P. Company Button Overshirt",
     "brand": "C.P. Company",
     "category": "Overshirts",
@@ -113,6 +114,7 @@ window.PRODUCTS=[
   },
   {
     "id": "sauna-longsleeve-navy-white-m",
+    "cardScale": 1.08,
     "name": "Sauna L/S Tee — Navy / White",
     "brand": "Sauna",
     "category": "Longsleeves",

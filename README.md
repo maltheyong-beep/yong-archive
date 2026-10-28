@@ -9,11 +9,11 @@ A Danish storefront for new and secondhand clothing. Current inventory:
 
 ## Run
 
-Serve the repository root with a static web server. No build step or external dependencies.
+Serve `dist/` with a static web server. No build step or external dependencies.
 
 ## Inventory and original photos
 
-Edit `catalog.js`. Each listing has a condition, condition type (`new` or `preowned`), price, size, description, and its own photo gallery. All 23 original product photos are included. Rotations happen in the page layout only: the black hoodie front rotates 90 degrees counterclockwise and the Sauna back photo rotates 180 degrees. Source photos are preserved.
+Edit `dist/catalog.js`. Each listing has a condition, condition type (`new` or `preowned`), price, size, description, and its own photo gallery. All 23 original product photos are included. Rotations happen in the page layout only: the black hoodie front rotates 90 degrees counterclockwise and the Sauna back photo rotates 180 degrees. Source photos are preserved.
 
 A missing price must be `null`. The interface shows “Pris kommer”, excludes that item from cart additions, and keeps it last when sorting by price. Do not guess a price.
 
@@ -49,3 +49,8 @@ Primary references checked 28 October 2026:
 - https://forbrugerombudsmanden.dk/alle-emner/anden-lovgivning/e-handelsloven
 - https://forbrugerombudsmanden.dk/alle-emner/uanmodede-henvendelser/indhentelse-af-samtykke
 - https://forbrugerombudsmanden.dk/alle-emner/uanmodede-henvendelser/brug-af-konkurrencer
+
+
+## Responsive photo optimization
+
+All 23 original JPEG files remain unchanged and open in the full-size viewer. The storefront uses three WebP derivatives per image (480, 960 and 1600 pixels on the longest edge), responsive `srcset`/`sizes`, explicit dimensions and asynchronous decoding. Small versions total 450,862 bytes versus 13,213,435 bytes for the originals (97% smaller in aggregate; actual transfers depend on screen size and pixel density). Correct rotations are retained, including the black hoodie front and Sauna back. C.P. Company and Sauna card previews use a gentle 8% framing adjustment; their full gallery images remain uncropped. No generated garment details, color corrections or retouching are applied. `photo-manifest.js` provides image dimensions and variant paths.

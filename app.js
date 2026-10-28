@@ -77,10 +77,19 @@
     dialog.addEventListener('cancel', event => { event.preventDefault(); closeDialog(dialog); });
   });
 
-  // Preserve the original photos. Rotation happens only in the page layout.
-  function img(product, index = 0, extra = '') {
+  // Responsive derivatives keep the original pixels, colors and photo orientation.
+  // The full-size viewer always opens the untouched source photo.
+  function img(product, index = 0, extra = '', context = 'small', priority = false) {
+    const file = product.photos[index];
+    const asset = window.PHOTO_ASSETS?.[file];
     const rotation = product.rotations?.[index] || 0;
-    return `<img src="${escape(product.photos[index])}" alt="${escape(product.name)} – ${escape(product.photoLabels[index])}" loading="lazy" ${rotation ? `data-rotate="${rotation}"` : ''} ${extra}>`;
+    const sizes = { grid: '(max-width:700px) 46vw, (max-width:1000px) 44vw, 30vw', detail: '(max-width:700px) 94vw, 49vw', thumb: '100px', small: '130px' }[context] || '100vw';
+    const sources = asset?.sources || [];
+    const fallback = context === 'original' ? file : sources[0]?.src || file;
+    const rawSizes = Math.abs(rotation) % 180 === 90 ? { grid: '(max-width:700px) 62vw, (max-width:1000px) 59vw, 40vw', detail: '(max-width:700px) 125vw, 66vw', thumb: '134px', small: '174px' }[context] || sizes : sizes;
+    const responsive = context !== 'original' && sources.length ? `srcset="${sources.map(source => `${escape(source.src)} ${source.width}w`).join(', ')}" sizes="${rawSizes}"` : '';
+    const dimensions = asset ? `width="${asset.width}" height="${asset.height}"` : '';
+    return `<img src="${escape(fallback)}" ${responsive} ${dimensions} alt="${escape(product.name)} – ${escape(product.photoLabels[index])}" loading="${priority || context === 'detail' || context === 'original' ? 'eager' : 'lazy'}" decoding="async" fetchpriority="${priority ? 'high' : 'auto'}" ${rotation ? `data-rotate="${rotation}"` : ''} ${extra}>`;
   }
   function fitRotatedFrame(frame) {
     const image = frame.querySelector('img[data-rotate]');
@@ -124,9 +133,9 @@
     if (state.sort === 'newest') result.sort((a, b) => b.date.localeCompare(a.date));
     return result;
   }
-  function card(product) {
+  function card(product, order) {
     return `<article class="product-card"><button class="product-image" data-product="${product.id}" aria-label="Se ${escape(product.name)}, ${priceText(product)}">
-      <span class="sample-badge real-condition">${product.conditionType === 'new' ? 'Helt ny' : 'Secondhand'}</span><span class="product-media photo-frame">${img(product, 0, 'class="primary"')}${img(product, 1, 'class="alternate"')}</span><span class="product-size">Str. ${product.size}</span></button>
+      <span class="sample-badge real-condition">${product.conditionType === 'new' ? 'Helt ny' : 'Secondhand'}</span><span class="product-media photo-frame" style="--front-scale:${product.cardScale || 1}">${img(product, 0, 'class="primary"', 'grid', order < 1)}${img(product, 1, 'class="alternate"', 'grid')}</span><span class="product-size">Str. ${product.size}</span></button>
       ${hasPrice(product) ? `<button class="quick-add" data-add="${product.id}" aria-label="Læg ${escape(product.name)} i kurven">+</button>` : ''}
       <div class="product-meta"><div class="product-topline"><button class="product-name" data-product="${product.id}">${escape(product.name)}</button><span class="product-price">${priceText(product)}</span></div>
       <p class="product-description">${product.color} / Str. ${product.size}</p><div class="product-bottom"><span class="swatch" style="--swatch:${product.hex}" role="img" aria-label="Farve: ${product.color}"></span><span class="condition">${escape(product.condition)}</span></div></div></article>`;
@@ -197,8 +206,8 @@
     currentProduct = product; currentPhoto = 0;
     const variants = product.group ? products.filter(other => other.group === product.group) : [product];
     $('#product-content').innerHTML = `<div class="product-layout"><div class="product-gallery">
-      <button class="main-product-image photo-frame" id="gallery-expand" aria-label="Se stort billede af ${escape(product.name)}">${img(product)}<span class="expand-label">Se stort ↗</span></button>
-      <div class="gallery-thumbs">${product.photos.map((photo, index) => `<button class="gallery-thumb photo-frame ${index === 0 ? 'selected' : ''}" data-gallery="${index}" aria-label="${product.photoLabels[index]}" aria-pressed="${index === 0}">${img(product, index)}</button>`).join('')}</div>
+      <button class="main-product-image photo-frame" id="gallery-expand" aria-label="Se stort billede af ${escape(product.name)}">${img(product, 0, '', 'detail')}<span class="expand-label">Se stort ↗</span></button>
+      <div class="gallery-thumbs">${product.photos.map((photo, index) => `<button class="gallery-thumb photo-frame ${index === 0 ? 'selected' : ''}" data-gallery="${index}" aria-label="${product.photoLabels[index]}" aria-pressed="${index === 0}">${img(product, index, '', 'thumb')}</button>`).join('')}</div>
       <p class="gallery-caption">Egne billeder af den konkrete vare. Tryk på billedet for at se detaljerne.</p></div>
       <div class="product-details"><p class="eyebrow">${escape(product.brand.toUpperCase())} / ${escape(product.category.toUpperCase())}</p><h2>${escape(product.name)}</h2><p class="detail-price">${priceText(product)}</p>
       <div class="detail-badges"><span>${product.conditionType === 'new' ? 'Helt ny' : 'Secondhand · ' + escape(product.condition)}</span></div>
@@ -219,13 +228,13 @@
   function setGallery(index) {
     currentPhoto = index;
     const frame = $('#gallery-expand');
-    frame.innerHTML = `${img(currentProduct, index)}<span class="expand-label">Se stort ↗</span>`;
+    frame.innerHTML = `${img(currentProduct, index, '', 'detail')}<span class="expand-label">Se stort ↗</span>`;
     $$('[data-gallery]').forEach(button => { const selected = Number(button.dataset.gallery) === index; button.classList.toggle('selected', selected); button.setAttribute('aria-pressed', String(selected)); });
     fitPhotos();
     animateElement(frame.querySelector('img'), [{ opacity: .25, transform: 'scale(.98)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 400 });
   }
   function renderLargePhoto() {
-    $('#large-photo').innerHTML = img(currentProduct, currentPhoto);
+    $('#large-photo').innerHTML = img(currentProduct, currentPhoto, '', 'original');
     $('#photo-counter').textContent = `${currentPhoto + 1} / ${currentProduct.photos.length} · ${currentProduct.photoLabels[currentPhoto]}`;
     fitPhotos();
   }
